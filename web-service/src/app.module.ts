@@ -4,6 +4,7 @@ import { AuthModule } from './module/auth/auth.module';
 import { QuizzesModule } from './module/quizzes/quizzes.module';
 import { QuestionsModule } from './module/questions/questions.module';
 import { ReportsModule } from './module/reports/reports.module';
+import { PrismaService } from './module/database/prisma.service';
 
 @Module({
   imports: [
@@ -11,9 +12,9 @@ import { ReportsModule } from './module/reports/reports.module';
     AuthModule,
     QuizzesModule,
     QuestionsModule,
-    ReportsModule,
+    ReportsModule
   ],
   controllers: [],
-  providers: [],
+  providers: [PrismaService],
 })
 export class AppModule {}

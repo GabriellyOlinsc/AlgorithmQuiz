@@ -1,0 +1,90 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  STUDENT
+  TEACHER
+}
+
+enum Level {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+model User {
+  id         Int      @id @default(autoincrement())
+  name       String
+  email      String   @unique
+  password   String
+  role       Role
+  enrollCode String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  //Relations
+  performance Performance[]
+  quizzes     Quiz[]        @relation("CreatedQuizzes")
+  Quiz        Quiz[]
+}
+
+model Quiz {
+  id            Int      @id @default(autoincrement())
+  title         String
+  level         Level
+  selectionMode String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relations
+  teacher      User          @relation("CreatedQuizzes", fields: [teacherId], references: [id])
+  teacherId    Int
+  questions    Question[]    @relation("QuizQuestions")
+  performances Performance[]
+
+  User   User? @relation(fields: [userId], references: [id])
+  userId Int?
+}
+
+model Question {
+  id           Int           @id @default(autoincrement())
+  statement    String
+  level        Level
+  alternatives Alternative[]
+  quizzes      Quiz[]        @relation("QuizQuestions")
+}
+
+model Alternative {
+  id         Int      @id @default(autoincrement())
+  statement  String
+  correct    Boolean
+  questionId Int
+  question   Question @relation(fields: [questionId], references: [id])
+}
+
+model Performance {
+  id              Int      @id @default(autoincrement())
+  score           Int
+  correctAnswer   Float
+  incorrectAnswer Int
+  timeSpent       Float
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  student   User @relation(fields: [studentId], references: [id])
+  studentId Int
+  quiz      Quiz @relation(fields: [quizId], references: [id])
+  quizId    Int
+}
