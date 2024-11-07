@@ -5,6 +5,10 @@ import { QuizzesModule } from './module/quizzes/quizzes.module';
 import { QuestionsModule } from './module/questions/questions.module';
 import { ReportsModule } from './module/reports/reports.module';
 import { PrismaService } from './module/database/prisma.service';
+import { AuthGuard } from './core/guards/auth.guard';
+import { RolesGuard } from './core/guards/role.guard';
+import { APP_GUARD } from '@nestjs/core';
+import { PhasesModule } from './module/phases/phases.module';
 
 @Module({
   imports: [
@@ -12,9 +16,19 @@ import { PrismaService } from './module/database/prisma.service';
     AuthModule,
     QuizzesModule,
     QuestionsModule,
-    ReportsModule
+    ReportsModule,
+    PhasesModule,
   ],
-  controllers: [],
-  providers: [PrismaService],
+  providers: [
+    PrismaService,
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+  ],
 })
 export class AppModule {}

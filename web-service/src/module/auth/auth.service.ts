@@ -16,11 +16,10 @@ export class AuthService {
       throw new NotFoundException('User not found');
     }
     
-    console.log("user: ", user.password, pass)
     const isMatch = await bcrypt.compare(pass, user.password);
 
     if (isMatch) {
-      const payload = { id: user.id, username: user.name };
+      const payload = { id: user.id, username: user.name, role: user.role };
       const token  = await this.jwtService.signAsync(payload);
       return {token}
     } else {
