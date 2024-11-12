@@ -17,6 +17,13 @@ import { CreateUserDto } from './dto/create-user.dto';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @Post('')
+  @Roles(Role.Teacher) 
+  async createUser(@Body() createUserDto: CreateUserDto, @Req() req) {
+    const requesterRole = req.user.role;
+    return this.usersService.createUser(createUserDto, requesterRole);
+  }
+
   @Get('')
   @Roles(Role.Teacher)
   async findAll() {
@@ -29,16 +36,10 @@ export class UsersController {
    return await this.usersService.findOne(id);
   }
 
-  @Post('')
-  @Roles(Role.Teacher) 
-  async createUser(@Body() createUserDto: CreateUserDto, @Req() req) {
-    const requesterRole = req.user.role;
-    return this.usersService.createUser(createUserDto, requesterRole);
-  }
 
   @Delete('/:id')
   @Roles(Role.Teacher)
-  async deleteUser(@Param('id') id: number) {
-    return await this.usersService.deleteUser(id);
+  async deleteUser(@Param('id') id: number, @Req() req) {
+    return await this.usersService.deleteUser(id, req.user['id']);
    }
 }

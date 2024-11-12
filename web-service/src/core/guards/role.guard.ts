@@ -17,12 +17,10 @@ import {
         context.getClass(),
       ]);
 
-      console.log("Required roles: ", requiredRoles)
       if (!requiredRoles) {
         return true;
       }
       const { user } = context.switchToHttp().getRequest();
-      console.log("User: ", user, requiredRoles)
       return requiredRoles.some((role) => user.role === role);
     }
   }

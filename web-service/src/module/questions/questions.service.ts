@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { PrismaService } from '../database/prisma.service';
 
@@ -9,7 +9,7 @@ export class QuestionsService {
   async create(data: CreateQuestionDto) {
     const { statement, level, alternatives } = data;
 
-    return await this.prisma.question.create({
+    const question = await this.prisma.question.create({
       data: {
         statement,
         level,
@@ -24,6 +24,8 @@ export class QuestionsService {
         alternatives: true,
       },
     });
+
+    return { status: 200, data: question };
   }
 
   async findAll() {
@@ -42,7 +44,7 @@ export class QuestionsService {
     if (!questions.length) {
       throw new NotFoundException('No question registered.');
     }
-    return questions;
+    return {status: 200, data: questions};
   }
 
   async findOne(id: number) {
@@ -54,24 +56,35 @@ export class QuestionsService {
     if (!question) {
       throw new NotFoundException(`Question with ID ${id} not found`);
     }
-    return question;
+    return {status: 200, data: question};
   }
 
   async remove(id: number) {
-    //TODO: bloquear se a pergunta está linkada com alguma fase.
     const question = await this.prisma.question.findUnique({
       where: { id },
+      include: {
+        phases: true, 
+      },
     });
 
     if (!question) {
       throw new NotFoundException(`Question with ID ${id} not found`);
     }
+
+    if (question.phases.length > 0) {
+      throw new BadRequestException(
+        'This question is linked with an active phase.'
+      );
+    }
+
     await this.prisma.alternative.deleteMany({
       where: { questionId: id },
     });
 
-    return  this.prisma.question.delete({
+    const deletedQuestion = await this.prisma.question.delete({
       where: { id },
     });
+
+    return {status: 200, data: deletedQuestion}
   }
 }

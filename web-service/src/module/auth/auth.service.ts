@@ -21,7 +21,7 @@ export class AuthService {
     if (isMatch) {
       const payload = { id: user.id, username: user.name, role: user.role };
       const token  = await this.jwtService.signAsync(payload);
-      return {token}
+      return {status: 200, token}
     } else {
       throw new UnauthorizedException('Senha incorreta');
     }

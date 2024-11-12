@@ -1,34 +1,46 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Req,
+  Get,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { QuizzesService } from './quizzes.service';
-import { CreateQuizDto } from './dto/create-quiz.dto';
-import { UpdateQuizDto } from './dto/update-quiz.dto';
+import { CreateAutomaticQuizDto, CreateManualQuizDto } from './dto/create-quiz.dto';
+import { Roles } from 'src/core/decorator/roles.decorator';
+import { Role } from 'src/core/role.enum';
 
 @Controller('quizzes')
 export class QuizzesController {
   constructor(private readonly quizzesService: QuizzesService) {}
 
-  // @Post()
-  // create(@Body() createQuizDto: CreateQuizDto) {
-  //   return this.quizzesService.create(createQuizDto);
-  // }
+  @Get()
+  async findAll() {
+    return await this.quizzesService.findAll();
+  }
 
-  // @Get()
-  // findAll() {
-  //   return this.quizzesService.findAll();
-  // }
+  @Get(':id')
+  async findById(@Param('id') id: string) {
+    return await this.quizzesService.findById(Number(id));
+  }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.quizzesService.findOne(+id);
-  // }
+  @Post('/manual')
+  @Roles(Role.Teacher)
+  async createManualQuiz(@Body() createQuizDto: CreateManualQuizDto,  @Req() req) {
+    return await this.quizzesService.createManualQuiz(createQuizDto, req.user['id']);
+  }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateQuizDto: UpdateQuizDto) {
-  //   return this.quizzesService.update(+id, updateQuizDto);
-  // }
+  @Post('/automatic')
+  @Roles(Role.Teacher)
+  async createAutomaticQuiz(@Body() createQuizDto: CreateAutomaticQuizDto,  @Req() req) {
+    return await this.quizzesService.createAutomaticQuiz(createQuizDto, req.user['id']);
+  }
 
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.quizzesService.remove(+id);
-  // }
+  @Delete(':id')
+  @Roles(Role.Teacher)
+  async delete(@Param('id') id: string) {
+    return await this.quizzesService.delete(Number(id));
+  }
 }

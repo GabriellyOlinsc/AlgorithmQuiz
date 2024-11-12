@@ -1,6 +1,7 @@
 import {
   ConflictException,
   Injectable,
+  NotAcceptableException,
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from '../database/prisma.service';
@@ -13,7 +14,7 @@ export class UsersService {
   constructor(private prisma: PrismaService) {}
 
   async findAll() {
-    return await this.prisma.user.findMany({
+    const users = await this.prisma.user.findMany({
       select: {
         id: true,
         name: true,
@@ -24,6 +25,11 @@ export class UsersService {
         updatedAt: true,
       },
     });
+
+    if (!users) {
+      throw new NotFoundException('No user found.');
+    }
+    return { status: 200, data: users };
   }
 
   async findOne(userId: number) {
@@ -34,7 +40,7 @@ export class UsersService {
     if (!user) {
       throw new NotFoundException('Usuário não encontrado');
     }
-    return user;
+    return { status: 200, data: user };
   }
 
   async createUser(createUserDto: CreateUserDto, requesterRole: Role) {
@@ -66,15 +72,30 @@ export class UsersService {
       }),
     };
 
-    return await this.prisma.user.create({
+    const createdUser = await this.prisma.user.create({
       data: userData,
     });
+
+    return { status: 201, data: createdUser };
   }
 
-  async deleteUser(userId: number){
-    return this.prisma.user.delete({
+  async deleteUser(userId: number, authId: number) {
+    if (userId === authId) {
+      throw new NotAcceptableException('You cant delete yourself.');
+    }
+
+    const existingUser = await this.prisma.user.findUnique({
       where: { id: userId },
     });
-  }
 
+    if (!existingUser) {
+      throw new NotFoundException('User not found.');
+    }
+
+    const user = await this.prisma.user.delete({
+      where: { id: userId },
+    });
+
+    return { status: 200, data: user  };
+  }
 }

@@ -57,6 +57,7 @@ model Quiz {
 model Phase {
   id        Int        @id @default(autoincrement())
   name      String
+  level     Level
   questions Question[] @relation("PhaseQuestions") 
   quizzes   Quiz[]     @relation("QuizPhases")  
 }

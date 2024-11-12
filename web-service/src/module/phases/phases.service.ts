@@ -1,6 +1,11 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from '../database/prisma.service';
 import { CreatePhaseDto } from './dto/create-phases.dto';
+import { validateLevelDifficulty } from 'src/utils/level';
 
 @Injectable()
 export class PhasesService {
@@ -15,7 +20,7 @@ export class PhasesService {
     if (!phases.length) {
       throw new NotFoundException('No phases registered.');
     }
-    return phases;
+    return {status: 200, data: phases};
   }
 
   async findOne(id: number) {
@@ -30,48 +35,62 @@ export class PhasesService {
       throw new NotFoundException(`Phase with ID ${id} not found`);
     }
 
-    return phase;
+    return {status: 200, data: phase};
   }
 
-  async create(createPhaseDto: CreatePhaseDto) {
-    const { name, questionIds } = createPhaseDto;
-
+  async createPhaseManual(createPhaseDto: CreatePhaseDto) {
+    const { name, questionIds, level } = createPhaseDto;
+    
     const questions = await this.prisma.question.findMany({
-      where: {
-        id: { in: questionIds },
-      },
+      where: { id: { in: questionIds } },
+      select: { id: true, level: true },
     });
 
     if (questions.length !== 4) {
-      throw new BadRequestException('A phase must have 4 questions.');
+      throw new BadRequestException('A phase must have 4 valid questions.');
     }
 
-   const phase = await this.prisma.phase.create({
+    const questionLevels = questions.map((q) => q.level);
+
+    const isValid = validateLevelDifficulty(level, questionLevels, 4);
+    if (!isValid) {
+      throw new BadRequestException(
+        'The selected questions do not meet the criteria for the phase level',
+      );
+    }
+    const newPhase = await this.prisma.phase.create({
       data: {
-        name: name,
+        name,
+        level,
         questions: {
           connect: questionIds.map((id) => ({ id })),
         },
       },
     });
 
-    return phase;
+    return {status: 200, data: newPhase};
   }
 
   async delete(id: number) {
-    //todo: verificar se essa fase esta linkada com alguma coisa
     const phase = await this.prisma.phase.findUnique({
       where: { id },
+      include: { quizzes: true },
     });
 
     if (!phase) {
       throw new NotFoundException(`Phase with ID ${id} not found`);
     }
 
+    if (phase.quizzes.length > 0) {
+      throw new BadRequestException(
+        'The phase cannot be deleted because it is linked to a quiz',
+      );
+    }
+
     await this.prisma.phase.delete({
       where: { id },
     });
 
-    return { message: `Phase with ID ${id} deleted successfully` };
+    return { status: 200, message: `Phase with ID ${id} deleted successfully` };
   }
 }

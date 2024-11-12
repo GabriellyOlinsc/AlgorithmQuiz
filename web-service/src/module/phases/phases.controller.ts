@@ -9,25 +9,27 @@ export class PhasesController {
   constructor(private readonly phasesService: PhasesService) {}
 
   @Get()
+  @Roles(Role.Teacher)
   async findAll() {
-    return this.phasesService.findAll();
+    return await this.phasesService.findAll();
   }
 
   @Get(':id')
+  @Roles(Role.Teacher)
   async findOne(@Param('id') id: number) {
-    console.log("id:")
-    return this.phasesService.findOne(id);
+    return await this.phasesService.findOne(id);
   }
 
-  @Post()
+  @Post('/manual')
   @Roles(Role.Teacher)
-  async create(@Body() createPhaseDto: CreatePhaseDto) {
-    return this.phasesService.create(createPhaseDto);
+  async createPhaseManual(@Body() createPhaseDto: CreatePhaseDto) {
+    return await this.phasesService.createPhaseManual(createPhaseDto);
   }
+
 
   @Delete(':id')
   @Roles(Role.Teacher)
   async delete(@Param('id') id: number) {
-    return this.phasesService.delete(id);
+    return await this.phasesService.delete(id);
   }
 }
