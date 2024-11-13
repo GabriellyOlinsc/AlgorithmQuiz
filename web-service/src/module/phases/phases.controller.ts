@@ -20,7 +20,7 @@ export class PhasesController {
     return await this.phasesService.findOne(id);
   }
 
-  @Post('/manual')
+  @Post('')
   @Roles(Role.Teacher)
   async createPhaseManual(@Body() createPhaseDto: CreatePhaseDto) {
     return await this.phasesService.createPhaseManual(createPhaseDto);

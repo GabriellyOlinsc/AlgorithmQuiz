@@ -59,8 +59,6 @@ export class QuizzesService {
     if (phases.length < 5) {
       throw new BadRequestException('Not enough phases available to create a quiz.');
     }
-    const mappedtest = phases.filter((p) => p.level)
-    console.log("mappedteste: ", mappedtest)
 
     const selectedPhases = this.findValidPhaseCombination(phases, level);
     if (!selectedPhases) {
@@ -158,12 +156,7 @@ export class QuizzesService {
   }
 
   async delete(id: number) {
-    const quiz = await this.findById(id);
-
-    if (!quiz) {
-      throw new NotFoundException('Quiz não encontrado');
-    }
-
+    await this.findById(id);
     await this.prisma.quiz.update({
       where: { id: id },
       data: {
@@ -176,7 +169,7 @@ export class QuizzesService {
     await this.prisma.quiz.delete({
       where: { id: id },
     });
-    return { status: 201, message: 'Quiz excluído com sucesso' };
+    return { status: 201, message: 'Quiz successfully deleted' };
   }
 
 }
