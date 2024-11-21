@@ -1,0 +1,293 @@
+[
+  {
+    "statement": "Qual é o objetivo principal de um algoritmo?",
+    "level": "BEGINNER",
+    "alternatives": [
+      {
+        "statement": "Realizar cálculos complexos automaticamente.",
+        "correct": false
+      },
+      {
+        "statement": "Fornecer uma sequência de instruções para resolver um problema.",
+        "correct": true
+      },
+      { "statement": "Organizar dados em uma lista.", "correct": false },
+      {
+        "statement": "Armazenar informações em um banco de dados.",
+        "correct": false
+      },
+      { "statement": "Controlar o hardware do computador.", "correct": false }
+    ]
+  },
+  {
+    "statement": "Em qual fase do desenvolvimento o algoritmo geralmente é criado?",
+    "level": "BEGINNER",
+    "alternatives": [
+      { "statement": "Design de interface.", "correct": false },
+      { "statement": "Testes de integração.", "correct": false },
+      { "statement": "Análise e planejamento.", "correct": true },
+      { "statement": "Documentação do sistema.", "correct": false },
+      { "statement": "Implementação de segurança.", "correct": false }
+    ]
+  },
+  {
+    "statement": "Qual estrutura de controle permite repetir uma sequência de instruções até que uma condição seja satisfeita?",
+    "level": "BEGINNER",
+    "alternatives": [
+      { "statement": "Condicional if.", "correct": false },
+      { "statement": "Função return.", "correct": false },
+      { "statement": "Estrutura de repetição while.", "correct": true },
+      { "statement": "Declaração switch.", "correct": false },
+      { "statement": "Estrutura condicional else.", "correct": false }
+    ]
+  },
+  {
+    "statement": "Qual é o propósito de uma estrutura for em um algoritmo?",
+    "level": "BEGINNER",
+    "alternatives": [
+      { "statement": "Definir variáveis.", "correct": false },
+      { "statement": "Realizar ações condicionais.", "correct": false },
+      {
+        "statement": "Repetir uma sequência de comandos um número específico de vezes.",
+        "correct": true
+      },
+      { "statement": "Retornar um valor de uma função.", "correct": false },
+      { "statement": "Alocar memória.", "correct": false }
+    ]
+  },
+  {
+    "statement": "Qual estrutura de dados é frequentemente usada em algoritmos de busca?",
+    "level": "INTERMEDIATE",
+    "alternatives": [
+      { "statement": "Fila (Queue)", "correct": false },
+      { "statement": "Lista ligada (Linked List)", "correct": false },
+      { "statement": "Pilha (Stack)", "correct": true },
+      { "statement": "Grafo (Graph)", "correct": false },
+      { "statement": "Árvore (Tree)", "correct": false }
+    ]
+  },
+  {
+    "statement": "Em uma estrutura while, qual é o papel da condição?",
+    "level": "BEGINNER",
+    "alternatives": [
+      {
+        "statement": "Controlar o número de variáveis dentro do loop.",
+        "correct": false
+      },
+      {
+        "statement": "Determinar quantas vezes o loop será executado.",
+        "correct": true
+      },
+      { "statement": "Definir o valor final da execução.", "correct": false },
+      { "statement": "Iniciar o loop.", "correct": false },
+      { "statement": "Sempre tornar o loop infinito.", "correct": false }
+    ]
+  },
+  {
+    "statement": "Qual é a principal vantagem dos algoritmos de busca binária?",
+    "level": "INTERMEDIATE",
+    "alternatives": [
+      {
+        "statement": "Eles reduzem a quantidade de comparações ao dividir a lista ao meio.",
+        "correct": true
+      },
+      { "statement": "Eles não exigem ordenação da lista.", "correct": false },
+      {
+        "statement": "Eles são aplicáveis para qualquer estrutura de dados.",
+        "correct": false
+      },
+      {
+        "statement": "Eles usam força bruta para encontrar a solução.",
+        "correct": false
+      },
+      {
+        "statement": "Eles funcionam melhor em listas curtas.",
+        "correct": false
+      }
+    ]
+  },
+  {
+    "statement": "O que é uma 'condição de parada' em um algoritmo?",
+    "level": "INTERMEDIATE",
+    "alternatives": [
+      { "statement": "O valor de saída do algoritmo.", "correct": false },
+      {
+        "statement": "O tempo máximo de execução do algoritmo.",
+        "correct": false
+      },
+      { "statement": "Um comando que inicia o algoritmo.", "correct": false },
+      { "statement": "A velocidade de processamento.", "correct": false },
+      {
+        "statement": "O término da execução de um loop ou uma função recursiva.",
+        "correct": true
+      }
+    ]
+  },
+  {
+    "statement": "Qual é o propósito de uma função em um algoritmo?",
+    "level": "BEGINNER",
+    "alternatives": [
+      {
+        "statement": "Repetir uma sequência de comandos indefinidamente.",
+        "correct": false
+      },
+      {
+        "statement": "Organizar o código em blocos reutilizáveis.",
+        "correct": true
+      },
+      {
+        "statement": "Executar operações de entrada e saída.",
+        "correct": false
+      },
+      { "statement": "Encerrar a execução do programa.", "correct": false },
+      { "statement": "Gerar um número aleatório.", "correct": false }
+    ]
+  },
+  {
+    "statement": "Qual é o papel das estruturas condicionais (como if e else) em um algoritmo?",
+    "level": "BEGINNER",
+    "alternatives": [
+      {
+        "statement": "Permitir a execução repetitiva de um código.",
+        "correct": false
+      },
+      {
+        "statement": "Organizar dados de forma hierárquica.",
+        "correct": false
+      },
+      {
+        "statement": "Controlar o fluxo do algoritmo com base em condições específicas.",
+        "correct": true
+      },
+      {
+        "statement": "Converter dados entre tipos diferentes.",
+        "correct": false
+      },
+      { "statement": "Garantir que o algoritmo termine.", "correct": false }
+    ]
+  },
+  {
+    "statement": "Qual das opções a seguir representa um exemplo de um loop infinito?",
+    "level": "BEGINNER",
+    "alternatives": [
+      { "statement": "for (int i = 0; i < 10; i++)", "correct": false },
+      { "statement": "while (true)", "correct": true },
+      { "statement": "if (x == 10)", "correct": false },
+      { "statement": "return 0", "correct": false },
+      { "statement": "switch (x)", "correct": false }
+    ]
+  },
+  {
+    "statement": "Qual das opções a seguir representa uma estrutura de loop que se repete um número conhecido de vezes?",
+    "level": "BEGINNER",
+    "alternatives": [
+      { "statement": "while (true)", "correct": false },
+      { "statement": "do { ... } while (x > 5);", "correct": false },
+      { "statement": "if (x == 10)", "correct": false },
+      { "statement": "for (int i = 0; i < 10; i++)", "correct": true },
+      { "statement": "while (x > 10)", "correct": false }
+    ]
+  },
+  {
+    "statement": "Em qual estrutura de repetição o código dentro do loop será executado ao menos uma vez, independentemente da condição?",
+    "level": "BEGINNER",
+    "alternatives": [
+      { "statement": "for", "correct": false },
+      { "statement": "while", "correct": false },
+      { "statement": "do { ... } while", "correct": true },
+      { "statement": "if", "correct": false },
+      { "statement": "switch", "correct": false }
+    ]
+  },
+  {
+    "statement": "Qual dos comandos a seguir é usado para sair de um loop for antes do final?",
+    "level": "BEGINNER",
+    "alternatives": [
+      { "statement": "continue", "correct": false },
+      { "statement": "exit", "correct": false },
+      { "statement": "return", "correct": false },
+      { "statement": "break", "correct": true },
+      { "statement": "stop", "correct": false }
+    ]
+  },
+  {
+    "statement": "Qual das estruturas de controle abaixo permite executar um bloco de código somente quando uma condição específica é verdadeira?",
+    "level": "BEGINNER",
+    "alternatives": [
+      { "statement": "if", "correct": true },
+      { "statement": "for", "correct": false },
+      { "statement": "switch", "correct": false },
+      { "statement": "while", "correct": false },
+      { "statement": "return", "correct": false }
+    ]
+  },
+  {
+    "statement": "Em um loop for, qual é a finalidade do terceiro argumento? (for (int i = 0; i < 10; i++))",
+    "level": "BEGINNER",
+    "alternatives": [
+      { "statement": "Definir o valor inicial da variável.", "correct": false },
+      { "statement": "Avaliar a condição do loop.", "correct": false },
+      { "statement": "Declarar a variável de controle.", "correct": false },
+      { "statement": "Reiniciar o loop.", "correct": false },
+      {
+        "statement": "Atualizar a variável de controle a cada iteração.",
+        "correct": true
+      }
+    ]
+  },
+  {
+    "statement": "Qual será o valor de x após a execução do código: int x = 0; x += 5; x *= 2;?",
+    "level": "BEGINNER",
+    "alternatives": [
+      { "statement": "5", "correct": false },
+      { "statement": "0", "correct": false },
+      { "statement": "2", "correct": false },
+      { "statement": "10", "correct": true },
+      { "statement": "7", "correct": false }
+    ]
+  },
+  {
+    "statement": "Qual dos operadores abaixo é usado para incrementar o valor de uma variável em 1?",
+    "level": "BEGINNER",
+    "alternatives": [
+      { "statement": "+=", "correct": false },
+      { "statement": "++", "correct": true },
+      { "statement": "--", "correct": false },
+      { "statement": "==", "correct": false },
+      { "statement": "**", "correct": false }
+    ]
+  },
+  {
+    "statement": "Qual é o resultado da seguinte expressão: 5 % 2?",
+    "level": "BEGINNER",
+    "alternatives": [
+      { "statement": "0", "correct": false },
+      { "statement": "1", "correct": true },
+      { "statement": "2", "correct": false },
+      { "statement": "5", "correct": false },
+      { "statement": "10", "correct": false }
+    ]
+  },
+  {
+    "statement": "Qual será o valor final de a após a execução: int a = 5; a++; a--; a++;?",
+    "level": "BEGINNER",
+    "alternatives": [
+      { "statement": "5", "correct": false },
+      { "statement": "4", "correct": false },
+      { "statement": "6", "correct": true },
+      { "statement": "7", "correct": false },
+      { "statement": "3", "correct": false }
+    ]
+  },
+  {
+    "statement": "Qual será o valor de n após o código: int n = 8; n /= 2;?",
+    "level": "BEGINNER",
+    "alternatives": [
+      { "statement": "8", "correct": false },
+      { "statement": "4", "correct": true },
+      { "statement": "2", "correct": false },
+      { "statement": "16", "correct": false },
+      { "statement": "1", "correct": false }
+    ]
+  }
+]
