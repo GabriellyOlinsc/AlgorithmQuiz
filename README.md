@@ -34,10 +34,24 @@ Crie o arquivo .env na raiz do backend e defina as variáveis de ambiente.
 ```bash
 cd web-service
 npm install
-npm run start:dev
+```
+#### Configurar banco de dados e prisma
+Após configurar suas variáveis de ambiente, rode as migrações para criar as tabelas no banco de dados:
+```bash
+npx prisma migrate dev --name init
+```
+O projeto já vem com um script de seed para popular o banco de dados com dados iniciais. Para rodar o seed, utilize o seguinte comando:
+```bash
+npm run seed
 ```
 
+#### Rodar o projeto web-service:
+```bash
+npm run start:dev
+```
 ### Executar o Frontend (web-app)
+Crie um arquivo .env e configure suas variáveis de ambiente com base no arquivo de exemplo .env.example.
+
 ```bash
 cd web-app
 npm install
