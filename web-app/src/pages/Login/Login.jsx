@@ -1,30 +1,26 @@
-
 import { useNavigate } from "react-router-dom";
 import { Button, Typography, Stack, TextField } from "@mui/material";
 import { useState } from "react";
-import { useAuth } from "../../context/auth";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogin = async () => {
-    setError("");
-    const success = await login(email, password);
-
-    if (success) {
-      const role = localStorage.getItem("userRole");
-      navigate(role === "teacher" ? "/teacher" : "/student");
-    } else {
-      setError("Credenciais inválidas ou erro no servidor.");
-    }
+  const handleTeacherRedirect = () => {
+    // Simula o login como professor
+    localStorage.setItem("userRole", "teacher");
+    navigate("/teacher");
   };
 
   return (
-    <Stack spacing={2} alignItems="center" justifyContent="center" style={{ height: "100vh" }}>
+    <Stack
+      spacing={2}
+      alignItems="center"
+      justifyContent="center"
+      style={{ height: "100vh" }}
+    >
       <Typography variant="h4">Login</Typography>
       {error && <Typography color="error">{error}</Typography>}
       <TextField
@@ -42,8 +38,15 @@ const Login = () => {
         onChange={(e) => setPassword(e.target.value)}
         fullWidth
       />
-      <Button variant="contained" onClick={handleLogin}>
+      <Button variant="contained" onClick={() => setError("Funcionalidade em construção!")}>
         Entrar
+      </Button>
+      <Button
+        variant="outlined"
+        color="primary"
+        onClick={handleTeacherRedirect}
+      >
+        Entrar como Professor
       </Button>
     </Stack>
   );
