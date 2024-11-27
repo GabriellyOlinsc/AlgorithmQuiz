@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { Box, Button, Typography, Stack, TextField, Grid, Snackbar, Alert } from "@mui/material";
 import { useState } from "react";
-import { useAuth } from "../../context/auth";
 import { classes } from "./styles";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { useAuth } from "../../context/auth";
 
 const validationSchema = Yup.object({
   email: Yup.string()
@@ -18,6 +18,7 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const { login } = useAuth();
+
   const navigate = useNavigate();
 
   const handleLogin = async (values, { setSubmitting }) => {
@@ -126,3 +127,4 @@ const Login = () => {
 };
 
 export default Login;
+

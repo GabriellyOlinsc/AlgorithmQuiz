@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "../context/auth";
 import ProtectedRoute from "../components/ProtectedRoute";
-import { Login, Game, HomeStudent, Ranking, Welcome } from "../pages";
+import { Login, Game, HomeStudent, Ranking, Welcome, TeacherHome } from "../pages";
 
 const RoutesApp = () => {
     return (
@@ -12,11 +12,19 @@ const RoutesApp = () => {
                     <Routes>
                         <Route path="/" element={<Navigate to="/Login" />} />
                         <Route path="/Login" element={<Login />} />
-                        {/* ROTA DE TEACHER DEVE SER ALTERADA */}
                         <Route
                             path="/teacher"
                             element={
                                 <ProtectedRoute allowedRoles={["TEACHER"]}>
+                                    <TeacherHome />
+                                </ProtectedRoute>
+                            }
+                        >
+                        </Route>
+                        <Route
+                            path="/student"
+                            element={
+                                <ProtectedRoute allowedRoles={["STUDENT"]}>
                                     <HomeStudent />
                                 </ProtectedRoute>
                             }
@@ -25,14 +33,6 @@ const RoutesApp = () => {
                             <Route path="game" element={<Game />} />
                             <Route path="ranking" element={<Ranking />} />
                         </Route>
-                        <Route
-                            path="/student"
-                            element={
-                                <ProtectedRoute allowedRoles={["STUDENT"]}>
-                                    <Login />
-                                </ProtectedRoute>
-                            }
-                        />
                     </Routes>
                 </Fragment>
             </BrowserRouter>
