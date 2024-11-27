@@ -1,35 +1,54 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { loginService, logoutService } from "../services/authService";
+import { jwtDecode } from "jwt-decode";
+import api from "../api";
 
 const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null); // Armazena informações do usuário
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // Verifica se há token no localStorage
     const token = localStorage.getItem("authToken");
     const role = localStorage.getItem("userRole");
 
     if (token && role) {
-      setUser({ role });
+      try {
+        const decoded = jwtDecode(token);
+        const currentTime = Math.floor(Date.now() / 1000);
+
+        if (decoded.exp > currentTime) {
+          setUser({ role });
+        } else {
+          localStorage.removeItem("authToken");
+          localStorage.removeItem("userRole");
+        }
+      } catch (err) {
+        console.error("Erro ao decodificar o token:", err);
+        localStorage.removeItem("authToken");
+        localStorage.removeItem("userRole");
+      }
     }
   }, []);
 
   const login = async (email, password) => {
-    const result = await loginService(email, password);
+    try {
+      const response = await api.post("/auth/login", { email, password });
+      const decoded = jwtDecode(response.data.token);
+      localStorage.setItem("authToken", response.data.token);
+      localStorage.setItem("userRole", decoded.role);
 
-    if (result.success) {
-      setUser({ role: result.role });
-      return true;
+      setUser({ role: decoded.role, name: decoded.username });
+      return { success: true, response };
+    } catch (err) {
+      return { success: false, response: err };
     }
-    return false;
   };
 
   const logout = () => {
-    logoutService();
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("userRole");
     setUser(null);
   };
 
@@ -39,4 +58,3 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-

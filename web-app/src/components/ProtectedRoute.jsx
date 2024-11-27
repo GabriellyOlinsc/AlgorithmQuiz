@@ -1,19 +1,35 @@
 import { Navigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import { useAuth } from "../context/auth";
+import { jwtDecode } from "jwt-decode";
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
-  const { user } = useAuth();
 
-  if (!user) {
-    return <Navigate to="/login" replace />;
+
+  const token = localStorage.getItem("authToken");
+  if (token) {
+    try {
+      const decoded = jwtDecode(token);
+      const currentTime = Math.floor(Date.now() / 1000);
+
+      if (decoded.exp > currentTime) {
+        if (allowedRoles.includes(decoded.role)) {
+          return children;
+        } else {
+          return <Navigate to="/unauthorized" replace />;
+        }
+      } else {
+        localStorage.clear();
+        return <Navigate to="/login" replace />;
+      }
+    } catch (err) {
+      console.log(err)
+      localStorage.clear();
+      return <Navigate to="/login" replace />;
+    }
   }
 
-  if (!allowedRoles.includes(user.role)) {
-    return <Navigate to="/login" replace />;
-  }
+  return <Navigate to="/login" replace />;
 
-  return children;
 };
 
 ProtectedRoute.propTypes = {

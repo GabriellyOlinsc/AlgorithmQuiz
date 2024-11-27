@@ -1,11 +1,10 @@
-import { Fragment } from "react"
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
-import { AuthProvider } from "../context/auth"
-import ProtectedRoute from "../components/ProtectedRoute"
-import Login from "../pages/Login/Login"
+import { Fragment } from "react";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { AuthProvider } from "../context/auth";
+import ProtectedRoute from "../components/ProtectedRoute";
+import { Login, Game, HomeStudent, Ranking, Welcome } from "../pages";
 
 const RoutesApp = () => {
-
     return (
         <AuthProvider>
             <BrowserRouter>
@@ -13,18 +12,23 @@ const RoutesApp = () => {
                     <Routes>
                         <Route path="/" element={<Navigate to="/Login" />} />
                         <Route path="/Login" element={<Login />} />
+                        {/* ROTA DE TEACHER DEVE SER ALTERADA */}
                         <Route
                             path="/teacher"
                             element={
-                                <ProtectedRoute allowedRoles={["teacher"]}>
-                                    <Login />
+                                <ProtectedRoute allowedRoles={["TEACHER"]}>
+                                    <HomeStudent />
                                 </ProtectedRoute>
                             }
-                        />
+                        >
+                            <Route index element={<Welcome />} />
+                            <Route path="game" element={<Game />} />
+                            <Route path="ranking" element={<Ranking />} />
+                        </Route>
                         <Route
                             path="/student"
                             element={
-                                <ProtectedRoute allowedRoles={["student"]}>
+                                <ProtectedRoute allowedRoles={["STUDENT"]}>
                                     <Login />
                                 </ProtectedRoute>
                             }
@@ -33,7 +37,7 @@ const RoutesApp = () => {
                 </Fragment>
             </BrowserRouter>
         </AuthProvider>
-    )
-}
+    );
+};
 
-export default RoutesApp
+export default RoutesApp;
