@@ -2,7 +2,8 @@ import { Fragment } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "../context/auth";
 import ProtectedRoute from "../components/ProtectedRoute";
-import { Login, Game, HomeStudent, Ranking, Welcome, TeacherHome } from "../pages";
+import { Login, Game, HomeStudent, Ranking, Welcome, TeacherHome, QuizGame } from "../pages";
+
 
 const RoutesApp = () => {
     return (
@@ -31,6 +32,7 @@ const RoutesApp = () => {
                         >
                             <Route index element={<Welcome />} />
                             <Route path="game" element={<Game />} />
+                            <Route path="quiz" element={<QuizGame />} />
                             <Route path="ranking" element={<Ranking />} />
                         </Route>
                     </Routes>

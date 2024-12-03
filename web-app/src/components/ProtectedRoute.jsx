@@ -4,7 +4,6 @@ import { jwtDecode } from "jwt-decode";
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
 
-
   const token = localStorage.getItem("authToken");
   if (token) {
     try {

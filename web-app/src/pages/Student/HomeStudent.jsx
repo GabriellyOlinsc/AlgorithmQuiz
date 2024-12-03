@@ -1,11 +1,17 @@
-import { Box, Button, Typography, Stack, Paper } from "@mui/material";
-import ExitToAppIcon from "@mui/icons-material/ExitToApp"; // Ícone de sair
+import { Box, Button, Typography, Stack, Paper, Avatar, DialogTitle, Dialog, DialogContent, DialogContentText, DialogActions } from "@mui/material";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp"; 
 import { useNavigate, Outlet } from "react-router-dom";
 import { useAuth } from "../../context/auth";
 import { classes } from "./style";
+import { useEffect, useRef, useState } from "react";
 
 export default function HomeTeacher() {
-  const { logout, user } = useAuth();
+  const [showExitConfirmation, setShowExitConfirmation] = useState(false);
+  const [pendingNavigationPath, setPendingNavigationPath] = useState(null);
+  const [isInQuiz, setIsInQuiz] = useState(false);
+
+  const { logout } = useAuth();
+  const user = useRef()
   const navigate = useNavigate();
   
   const handleLogout = () => {
@@ -13,17 +19,36 @@ export default function HomeTeacher() {
     navigate("/login");
   };
 
+  useEffect(() => {
+    const userName = localStorage.getItem("userName");
+    user.current = userName
+    setIsInQuiz(location.pathname === "/student/quiz");
+  },[])
+
   const handleNavigate = (path) => {
-    navigate(path);
+    if (isInQuiz) {
+      setShowExitConfirmation(true);
+      setPendingNavigationPath(path);
+    } else {
+      navigate(path);
+    }
+  };
+
+  const confirmExit = () => {
+    setShowExitConfirmation(false);
+    setIsInQuiz(false); 
+    navigate(pendingNavigationPath);
+  };
+
+  const cancelExit = () => {
+    setShowExitConfirmation(false);
+    setPendingNavigationPath(null);
   };
 
   return (
     <Box sx={classes.container}>
       <Box sx={classes.sidebar}>
         <Box sx={classes.sidebarHeader}>
-          <Typography variant="h6">
-            {user ? user.name : "Usuário"}
-          </Typography>
           <ExitToAppIcon
             onClick={handleLogout}
             sx={{
@@ -33,18 +58,24 @@ export default function HomeTeacher() {
             }}
           />
         </Box>
-
+        <Avatar
+          src="src\assets\studentAvatar.png" 
+          alt={user?.name || "Usuário"}
+          sx={classes.avatar}
+        />
+        <Typography variant="h8" sx={{textAlign: 'center', marginBottom: 4}}>{ user ? user.current : "Usuário"}</Typography>
+        
         <Stack spacing={2} sx={{ width: "80%", alignItems: "center" }}>
           <Button
             variant="contained"
-            onClick={() => handleNavigate("/teacher/game")}
+            onClick={() => handleNavigate("/student/game")}
             sx={classes.sidebarButton}
           >
             Jogar
           </Button>
           <Button
             variant="contained"
-            onClick={() => handleNavigate("/teacher/ranking")}
+            onClick={() => handleNavigate("/student/ranking")}
             sx={classes.sidebarButton}
           >
             Ranking
@@ -57,6 +88,29 @@ export default function HomeTeacher() {
           <Outlet />
         </Paper>
       </Box>
+      <Dialog
+        open={showExitConfirmation}
+        onClose={cancelExit}
+        aria-labelledby="confirm-exit-title"
+        aria-describedby="confirm-exit-description"
+      >
+        <DialogTitle id="confirm-exit-title">
+          Confirmação de Saída
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="confirm-exit-description">
+            Ao sair do quiz, você perderá todo o progresso atual. Deseja realmente sair?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={cancelExit} color="primary">
+            Cancelar
+          </Button>
+          <Button onClick={confirmExit} color="secondary" autoFocus>
+            Sair
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }

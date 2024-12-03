@@ -4,3 +4,4 @@ export { default as HomeStudent } from "./Student/HomeStudent";
 export { default as Ranking } from "./Student/Ranking";
 export { default as Welcome } from "./Student/Welcome";
 export { default as TeacherHome } from "./Teacher/TeacherHome";
+export { default as QuizGame } from "./Student/QuizGame"

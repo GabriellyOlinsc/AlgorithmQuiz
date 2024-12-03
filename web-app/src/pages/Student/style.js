@@ -10,28 +10,34 @@ export const classes = {
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
-      marginLeft: 10,
+      marginLeft: 4,
       marginY: 3,
       borderRadius: "15px",
       boxShadow: "3px 0 10px rgba(0,0,0,0.2)",
       padding: 2,
+      height: "60%"
     },
     sidebarHeader: {
       width: "100%",
       display: "flex",
-      justifyContent: "space-between",
+      justifyContent: "flex-end",
       alignItems: "center",
-      padding: "0 1rem", // Espaçamento interno
       marginBottom: "1.5rem", // Espaçamento inferior
     },
     sidebarButton: {
       backgroundColor: "#FFF",
-      color: "#ff7043",
+      color: "black",
       width: "100%",
       boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.2)",
       ":hover": {
         backgroundColor: "#ffc1a8",
       },
+    },
+    avatar: {
+      width: "140px",
+      height: "140px",
+      marginBottom: "1rem",
+      boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
     },
     mainArea: {
       flexGrow: 1,
