@@ -43,4 +43,6 @@ export class QuizzesController {
   async delete(@Param('id') id: string) {
     return await this.quizzesService.delete(Number(id));
   }
+
+  //todo: criar um endpoint para mostrar e colocar uma flag mostrando que o aluno finalizou o quiz
 }

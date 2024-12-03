@@ -23,5 +23,6 @@ export class CreatePerformanceDto {
   incorrectAnswer: number;
 
   @ApiProperty()
+  @IsNotEmpty()
   timeSpent: number;
 }

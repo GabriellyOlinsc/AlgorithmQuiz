@@ -9,13 +9,11 @@ export class PhasesController {
   constructor(private readonly phasesService: PhasesService) {}
 
   @Get()
-  @Roles(Role.Teacher)
   async findAll() {
     return await this.phasesService.findAll();
   }
 
   @Get(':id')
-  @Roles(Role.Teacher)
   async findOne(@Param('id') id: number) {
     return await this.phasesService.findOne(id);
   }

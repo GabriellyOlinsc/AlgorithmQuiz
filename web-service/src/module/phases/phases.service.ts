@@ -9,7 +9,7 @@ import { validateLevelDifficulty } from 'src/utils/level';
 
 @Injectable()
 export class PhasesService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   async findAll() {
     const phases = await this.prisma.phase.findMany({
@@ -20,14 +20,18 @@ export class PhasesService {
     if (!phases.length) {
       throw new NotFoundException('No phases registered.');
     }
-    return {status: 200, data: phases};
+    return { status: 200, data: phases };
   }
 
   async findOne(id: number) {
     const phase = await this.prisma.phase.findUnique({
       where: { id },
       include: {
-        questions: true,
+        questions: {
+          include: {
+            alternatives: true, // Inclui as alternativas de cada questão
+          },
+        },
       },
     });
 
@@ -35,12 +39,24 @@ export class PhasesService {
       throw new NotFoundException(`Phase with ID ${id} not found`);
     }
 
-    return {status: 200, data: phase};
+    const transformedPhase = {
+      ...phase,
+      questions: phase.questions.map((question) => {
+        const correctAlternative = question.alternatives.find((alt) => alt.correct);
+        const res = correctAlternative?.id || null; // Define a constante `res` com o ID da alternativa correta
+        return {
+          ...question,
+          correctAlternative: res,
+        };
+      }),
+    };
+
+    return { status: 200, data: transformedPhase };
   }
 
   async createPhaseManual(createPhaseDto: CreatePhaseDto) {
     const { name, questionIds, level } = createPhaseDto;
-    
+
     const questions = await this.prisma.question.findMany({
       where: { id: { in: questionIds } },
       select: { id: true, level: true },
@@ -68,7 +84,7 @@ export class PhasesService {
       },
     });
 
-    return {status: 200, data: newPhase};
+    return { status: 200, data: newPhase };
   }
 
   async delete(id: number) {
