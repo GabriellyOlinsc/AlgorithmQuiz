@@ -43,6 +43,7 @@ model Quiz {
   id            Int      @id @default(autoincrement())
   title         String
   level         Level
+  description   String
   selectionMode String
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
@@ -58,8 +59,8 @@ model Phase {
   id        Int        @id @default(autoincrement())
   name      String
   level     Level
-  questions Question[] @relation("PhaseQuestions") 
-  quizzes   Quiz[]     @relation("QuizPhases")  
+  questions Question[] @relation("PhaseQuestions")
+  quizzes   Quiz[]     @relation("QuizPhases")
 }
 
 model Question {
@@ -67,7 +68,7 @@ model Question {
   statement    String
   level        Level
   alternatives Alternative[]
-  phases       Phase[]       @relation("PhaseQuestions") 
+  phases       Phase[]       @relation("PhaseQuestions")
 }
 
 model Alternative {

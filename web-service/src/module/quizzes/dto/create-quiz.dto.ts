@@ -17,6 +17,10 @@ export class CreateManualQuizDto {
   })
   level: Level;
 
+  @IsNotEmpty()
+  @IsString()
+  description: string;
+
   @IsArray()
   @ArrayMinSize(5)
   @ArrayMaxSize(5)

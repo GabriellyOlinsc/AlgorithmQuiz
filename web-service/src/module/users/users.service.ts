@@ -11,7 +11,7 @@ import { Role } from 'src/core/role.enum';
 
 @Injectable()
 export class UsersService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   async findAll() {
     const users = await this.prisma.user.findMany({
@@ -92,10 +92,15 @@ export class UsersService {
       throw new NotFoundException('User not found.');
     }
 
-    const user = await this.prisma.user.delete({
-      where: { id: userId },
-    });
+    await this.prisma.$transaction([
+      this.prisma.performance.deleteMany({
+        where: { studentId: userId },
+      }),
+      this.prisma.user.delete({
+        where: { id: userId },
+      }),
+    ]);
 
-    return { status: 200, data: user  };
+    return { status: 200, data: 'User deleted successfully' };
   }
 }

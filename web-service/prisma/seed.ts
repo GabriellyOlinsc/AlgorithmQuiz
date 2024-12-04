@@ -6,14 +6,14 @@ const prisma = new PrismaClient();
 
 async function main() {
   const salt = await bcrypt.genSalt();
-  const hash = await bcrypt.hash('123456', salt);
+  const hash = await bcrypt.hash('alcemar123', salt);
 
   await prisma.user.upsert({
-    where: { email: 'admin@example.com' },
+    where: { email: 'alcemar@example.com' },
     update: {},
     create: {
-      name: 'Admin',
-      email: 'admin@example.com',
+      name: 'Alcemar',
+      email: 'alcemar@example.com',
       password: hash,
       role: 'TEACHER',
       enrollCode: '',

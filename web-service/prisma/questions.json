@@ -57,7 +57,7 @@
   },
   {
     "statement": "Qual estrutura de dados é frequentemente usada em algoritmos de busca?",
-    "level": "INTERMEDIATE",
+    "level": "ADVANCED",
     "alternatives": [
       { "statement": "Fila (Queue)", "correct": false },
       { "statement": "Lista ligada (Linked List)", "correct": false },
@@ -223,7 +223,7 @@
   },
   {
     "statement": "Em um loop for, qual é a finalidade do terceiro argumento? (for (int i = 0; i < 10; i++))",
-    "level": "BEGINNER",
+    "level": "INTERMEDIATE",
     "alternatives": [
       { "statement": "Definir o valor inicial da variável.", "correct": false },
       { "statement": "Avaliar a condição do loop.", "correct": false },
@@ -281,13 +281,57 @@
   },
   {
     "statement": "Qual será o valor de n após o código: int n = 8; n /= 2;?",
-    "level": "BEGINNER",
+    "level": "INTERMEDIATE",
     "alternatives": [
       { "statement": "8", "correct": false },
       { "statement": "4", "correct": true },
       { "statement": "2", "correct": false },
       { "statement": "16", "correct": false },
       { "statement": "1", "correct": false }
+    ]
+  },
+  {
+    "statement": "Qual é a principal diferença entre a busca linear e a busca binária?",
+    "level": "INTERMEDIATE",
+    "alternatives": [
+      { "statement": "A busca binária é mais eficiente para listas desordenadas.", "correct": false },
+      { "statement": "A busca linear requer uma lista ordenada, enquanto a binária não.", "correct": false },
+      { "statement": "A busca binária tem complexidade O(n), enquanto a busca linear tem O(log n).", "correct": false },
+      { "statement": "A busca linear é mais eficiente em listas grandes e ordenadas.", "correct": false },
+      { "statement": "A busca binária divide a lista ao meio a cada iteração, reduzindo o número de comparações.", "correct": true }
+    ]
+  },
+  {
+    "statement": "Qual é a principal diferença entre a ordenação por inserção e a ordenação por bolha?",
+    "level": "ADVANCED",
+    "alternatives": [
+      { "statement": "A ordenação por inserção é mais eficiente para listas pequenas, enquanto a ordenação por bolha é melhor para listas grandes.", "correct": false },
+      { "statement": "A ordenação por bolha percorre a lista várias vezes trocando elementos adjacentes, enquanto a ordenação por inserção insere os elementos na posição correta.", "correct": true },
+      { "statement": "Ambos os algoritmos têm a mesma eficiência para qualquer tamanho de lista.", "correct": false },
+      { "statement": "A ordenação por bolha sempre tem desempenho melhor que a ordenação por inserção.", "correct": false },
+      { "statement": "A ordenação por inserção é mais eficiente quando a lista está em ordem inversa, enquanto a ordenação por bolha não tem essa vantagem.", "correct": false }
+    ]
+  },
+  {
+    "statement": "Em um algoritmo de programação dinâmica, qual é a principal vantagem em relação à recursão simples?",
+    "level": "ADVANCED",
+    "alternatives": [
+      { "statement": "A programação dinâmica utiliza mais memória, mas elimina subproblemas repetidos ao armazenar soluções parciais.", "correct": true },
+      { "statement": "A programação dinâmica resolve todos os subproblemas de forma sequencial, sem usar memória adicional.", "correct": false },
+      { "statement": "A programação dinâmica não requer recursão e é mais rápida que a recursão simples.", "correct": false },
+      { "statement": "A programação dinâmica só pode ser utilizada em problemas de otimização.", "correct": false },
+      { "statement": "A programação dinâmica usa uma abordagem iterativa para resolver problemas com estruturas lineares.", "correct": false }
+    ]
+  },
+  {
+    "statement": "Qual é o principal objetivo do uso de tabelas de hash em algoritmos?",
+    "level": "ADVANCED",
+    "alternatives": [
+      { "statement": "Organizar dados de forma hierárquica e sequencial.", "correct": false },
+      { "statement": "Acelerar a busca e a inserção de elementos, associando chaves únicas a valores.", "correct": true },
+      { "statement": "Armazenar dados de forma ordenada, com base em suas características.", "correct": false },
+      { "statement": "Reduzir a complexidade dos algoritmos de ordenação.", "correct": false },
+      { "statement": "Manter dados em uma estrutura sequencial para fácil acesso.", "correct": false }
     ]
   }
 ]

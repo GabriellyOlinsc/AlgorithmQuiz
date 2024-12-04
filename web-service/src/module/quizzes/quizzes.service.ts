@@ -73,6 +73,7 @@ export class QuizzesService {
         level,
         selectionMode: 'automatic',
         teacherId: teacherId,
+        description: "Quiz Automático",
         phases: {
           connect: selectedPhases.map((phase) => ({ id: phase.id })),
         },
@@ -86,7 +87,7 @@ export class QuizzesService {
     createQuizDto: CreateManualQuizDto,
     teacherId: number,
   ) {
-    const { name, phasesIds, level } = createQuizDto;
+    const { name, phasesIds, level, description } = createQuizDto;
 
     const phases = await this.prisma.phase.findMany({
       where: { id: { in: phasesIds } },
@@ -109,6 +110,7 @@ export class QuizzesService {
       data: {
         title: name,
         level,
+        description,
         selectionMode: 'manual',
         teacherId: teacherId,
         phases: {
