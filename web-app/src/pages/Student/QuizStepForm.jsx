@@ -211,7 +211,7 @@ export default function QuizStepForm({ phases }) {
                     marginBottom: 2,
                 }}
             >
-                <Typography variant="h6">{`${currentPhaseIndex + 1}º FASE ${progress}` }</Typography>
+                <Typography variant="h6">{`${currentPhaseIndex + 1}º FASE` }</Typography>
                 <Typography>{formatTime(timeRemaining)}</Typography>
             </Box>
             <LinearProgress

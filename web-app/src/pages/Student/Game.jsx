@@ -59,6 +59,7 @@ export default function Game() {
         flexDirection: "column",
         justifyContent: "space-between",
         height: "100vh",
+        width: '90%',
         padding: 2,
       }}
     >

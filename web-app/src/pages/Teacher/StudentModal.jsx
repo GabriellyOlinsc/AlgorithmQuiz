@@ -11,7 +11,7 @@ import CloseIcon from "@mui/icons-material/Close";
 
 const StudentModal = ({ open, handleClose, type, student, handleSave }) => {
   const [formData, setFormData] = useState(
-    student || { name: "", registration: "", email: "", password: "" }
+    student || { name: "", enrollCode: "", email: "", password: "" }
   );
 
   const isReadOnly = type === "Visualizar";
@@ -22,6 +22,7 @@ const StudentModal = ({ open, handleClose, type, student, handleSave }) => {
 
   const handleSubmit = () => {
     handleSave(formData);
+    handleClose()
   };
 
   return (
@@ -61,8 +62,8 @@ const StudentModal = ({ open, handleClose, type, student, handleSave }) => {
             fullWidth
             margin="normal"
             label="Matrícula"
-            value={formData.registration}
-            onChange={(e) => handleChange("registration", e.target.value)}
+            value={formData.enrollCode}
+            onChange={(e) => handleChange("enrollCode", e.target.value)}
             InputProps={{ readOnly: isReadOnly }}
           />
           <TextField

@@ -73,13 +73,13 @@ export default function HomeTeacher() {
           >
             Jogar
           </Button>
-          <Button
+          {/* <Button
             variant="contained"
             onClick={() => handleNavigate("/student/ranking")}
             sx={classes.sidebarButton}
           >
             Ranking
-          </Button>
+          </Button> */}
         </Stack>
       </Box>
 

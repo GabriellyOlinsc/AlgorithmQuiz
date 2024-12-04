@@ -15,10 +15,9 @@ import CloseIcon from "@mui/icons-material/Close";
 const ActivityModal = ({ open, handleClose, type, activity, handleSave }) => {
   const [formData, setFormData] = useState(
     activity || {
-      question: "",
+      statement: "",
       alternatives: ["", "", "", "", ""],
-      correctAnswer: 0,
-      difficulty: "Iniciante",
+      level: "Iniciante",
     }
   );
 
@@ -53,10 +52,13 @@ const ActivityModal = ({ open, handleClose, type, activity, handleSave }) => {
           left: "50%",
           transform: "translate(-50%, -50%)",
           width: 500,
+          height: 'auto',
+          maxHeight: '95%',
           bgcolor: "#f5f5f5",
           borderRadius: "10px",
           boxShadow: 24,
-          p: 4,
+          p: 3,
+          overflowY: 'auto',
         }}
       >
         <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -68,14 +70,14 @@ const ActivityModal = ({ open, handleClose, type, activity, handleSave }) => {
           </IconButton>
         </Box>
 
-        <Box mt={2}>
+        <Box mt={1}>
           <TextField
             fullWidth
             margin="normal"
             label="Pergunta"
-            value={formData.question}
-            onChange={(e) => handleChange("question", e.target.value)}
-            InputProps={{ readOnly: isReadOnly }}
+            value={formData.statement}
+            onChange={(e) => handleChange("statement", e.target.value)}
+            disabled={type === 'Visualizar'}
           />
           {formData.alternatives.map((alt, index) => (
             <TextField
@@ -83,7 +85,7 @@ const ActivityModal = ({ open, handleClose, type, activity, handleSave }) => {
               fullWidth
               margin="normal"
               label={`Alternativa ${index + 1}`}
-              value={alt}
+              value={alt.statement}
               onChange={(e) =>
                 handleChange(`alternative_${index}`, e.target.value)
               }
@@ -108,8 +110,8 @@ const ActivityModal = ({ open, handleClose, type, activity, handleSave }) => {
             </RadioGroup>
           )}
           <RadioGroup
-            value={formData.difficulty}
-            onChange={(e) => handleChange("difficulty", e.target.value)}
+            value={formData.level === 'BEGINNER' ? "Iniciante" : formData.level === 'INTERMEDIATE' ? "Intermediário" : formData.level === 'ADVANCED' ? 'Avançado' : formData.level}
+            onChange={(e) => handleChange("level", e.target.value)}
             row
           >
             {["Iniciante", "Intermediário", "Avançado"].map((level) => (
@@ -124,22 +126,24 @@ const ActivityModal = ({ open, handleClose, type, activity, handleSave }) => {
           </RadioGroup>
         </Box>
 
-        <Box mt={3} display="flex" justifyContent="center">
-        <Button
-  variant="contained"
-  onClick={type === "Visualizar" ? handleClose : handleSubmit}
-  sx={{
-    bgcolor: type === "Visualizar" ? "#ff8a65" : "#ffab91",
-    color: "#fff",
-    fontWeight: "bold",
-    textTransform: "none",
-    "&:hover": { bgcolor: type === "Visualizar" ? "#ff7043" : "#ff8a65" },
-  }}
->
-  {type === "Visualizar" ? "Fechar" : type === "Editar" ? "Salvar" : "Cadastrar"}
-</Button>
+        {type !== 'Visualizar' && (
+          <Box mt={3} display="flex" justifyContent="center">
+            <Button
+              variant="contained"
+              onClick={type === "Visualizar" ? handleClose : handleSubmit}
+              sx={{
+                bgcolor: type === "Visualizar" ? "#ff8a65" : "#ffab91",
+                color: "#fff",
+                fontWeight: "bold",
+                textTransform: "none",
+                "&:hover": { bgcolor: type === "Visualizar" ? "#ff7043" : "#ff8a65" },
+              }}
+            >
+              {type === "Visualizar" ? "Fechar" : type === "Editar" ? "Salvar" : "Cadastrar"}
+            </Button>
 
-        </Box>
+          </Box>)
+        }
       </Box>
     </Modal>
   );
